@@ -41,7 +41,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       <div className="container py-12 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Project Not Found</h1>
-          <p className="mt-4 text-lg text-muted-foreground">The project you're looking for doesn't exist.</p>
+          <p className="mt-4 text-lg text-muted-foreground">The project you&apos;re looking for doesn&apos;t exist.</p>
           <Button asChild className="mt-8">
             <Link href="/projects">
               <ArrowLeft className="mr-2 h-4 w-4" />

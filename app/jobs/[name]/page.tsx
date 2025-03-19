@@ -40,7 +40,7 @@ export default function JobPage({ params }: JobPageProps) {
       <div className="container py-12 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Job Not Found</h1>
-          <p className="mt-4 text-lg text-muted-foreground">The job you're looking for doesn't exist.</p>
+          <p className="mt-4 text-lg text-muted-foreground">The job you&apos;re looking for doesn&apos;t exist.</p>
           <Button asChild className="mt-8">
             <Link href="/jobs">
               <ArrowLeft className="mr-2 h-4 w-4" />
