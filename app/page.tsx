@@ -1,103 +1,144 @@
-import Image from "next/image";
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import ParallaxSection from "@/components/parallax-section"
+import { personalInfo, projects, jobs } from "@/lib/data"
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div>
+      <ParallaxSection />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <section className="container px-4 py-12 md:px-8 md:py-24">
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">About Me</h2>
+            <p className="mt-4 text-lg text-muted-foreground">{personalInfo.longBio}</p>
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold">Skills</h3>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {personalInfo.skills.map((skill) => (
+                  <Badge key={skill} variant="secondary">
+                    {skill}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="relative h-80 w-80 overflow-hidden rounded-full border-4 border-primary md:h-96 md:w-96">
+              <Image
+                src={personalInfo.avatar || "/placeholder.svg"}
+                alt={personalInfo.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      <section className="bg-muted px-4 py-12 md:px-8 md:py-24">
+        <div className="container">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Featured Projects</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Check out some of my recent work</p>
+            </div>
+            <Link href="/projects">
+              <Button variant="outline" className="gap-1">
+                View All Projects <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.slice(0, 3).map((project) => (
+              <Card key={project.id} className="overflow-hidden">
+                <div className="relative aspect-video">
+                  <Image src={project.image} alt={project.name} fill className="object-cover" />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold">{project.name}</h3>
+                  <p className="mt-2 line-clamp-2 text-muted-foreground">{project.description}</p>
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="mt-4 inline-flex items-center text-sm font-medium text-primary"
+                  >
+                    View Project <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="container px-4 py-12 md:px-8 md:py-24">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Work Experience</h2>
+            <p className="mt-4 text-lg text-muted-foreground">My professional journey</p>
+          </div>
+          <Link href="/jobs">
+            <Button variant="outline" className="gap-1">
+              View All Experience <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+
+        <div className="mt-12 space-y-6">
+          {jobs.slice(0, 3).map((job) => (
+            <Card key={job.id} className="overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <div className="relative h-16 w-16 overflow-hidden rounded-md">
+                    <Image src={job.logo} alt={job.company} fill className="object-cover" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                      <div>
+                        <h3 className="text-xl font-bold">{job.title}</h3>
+                        <p className="text-lg font-medium text-muted-foreground">{job.company}</p>
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {job.startDate} - {job.endDate}
+                      </div>
+                    </div>
+                    <p className="mt-2 text-muted-foreground">{job.description}</p>
+                    <Link
+                      href={`/jobs/${job.slug}`}
+                      className="mt-4 inline-flex items-center text-sm font-medium text-primary"
+                    >
+                      View Details <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-primary px-4 text-primary-foreground md:px-8">
+        <div className="container py-12 md:py-24">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Let's Work Together</h2>
+            <p className="mt-4 text-lg text-primary-foreground/80">
+              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            </p>
+            <div className="mt-8">
+              <Button asChild variant="secondary" size="lg" className="rounded-full">
+                <Link href={`mailto:${personalInfo.email}`}>Get in Touch</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
+
