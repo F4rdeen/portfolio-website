@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button"
 import { jobs } from "@/lib/data"
 
 interface JobPageProps {
-  params: {
+  params: Promise<{
     name: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -17,8 +17,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }: JobPageProps): Metadata {
-  const job = jobs.find((j) => j.slug === params.name)
+export async function generateMetadata({ params }: JobPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const job = jobs.find((j) => j.slug === resolvedParams.name)
 
   if (!job) {
     return {
@@ -32,8 +33,9 @@ export function generateMetadata({ params }: JobPageProps): Metadata {
   }
 }
 
-export default function JobPage({ params }: JobPageProps) {
-  const job = jobs.find((j) => j.slug === params.name)
+export default async function JobPage({ params }: JobPageProps) {
+  const resolvedParams = await params
+  const job = jobs.find((j) => j.slug === resolvedParams.name)
 
   if (!job) {
     return (

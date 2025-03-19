@@ -7,9 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import { projects } from "@/lib/data"
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     name: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -18,8 +18,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
-  const project = projects.find((p) => p.slug === params.name)
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const project = projects.find((p) => p.slug === resolvedParams.name)
 
   if (!project) {
     return {
@@ -33,8 +34,9 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   }
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projects.find((p) => p.slug === params.name)
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const resolvedParams = await params
+  const project = projects.find((p) => p.slug === resolvedParams.name)
 
   if (!project) {
     return (
