@@ -126,9 +126,9 @@ export default function Home() {
       <section className="bg-primary px-4 text-primary-foreground md:px-8">
         <div className="container py-12 md:py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Let's Work Together</h2>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Let&apos;s Work Together</h2>
             <p className="mt-4 text-lg text-primary-foreground/80">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+              I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             </p>
             <div className="mt-8">
               <Button asChild variant="secondary" size="lg" className="rounded-full">
