@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Fardeen Maaruf. All rights reserved.
+            © {new Date().getFullYear()} Mohamad Fardeen. All rights reserved.
           </p>
         </div>
       </div>

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
   }
 
   return {
-    title: `${job.title} at ${job.company} | Alex Morgan`,
+    title: `${job.title} at ${job.company} | Mohamad Fardeen`,
     description: job.description,
   }
 }

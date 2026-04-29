@@ -32,8 +32,8 @@ export default function ParallaxSection() {
         }}
       >
         <div className="text-center text-white">
-          <h1 className="text-4xl font-bold drop-shadow-lg md:text-6xl">Fardeen Maaruf</h1>
-          <p className="mt-4 text-xl drop-shadow-lg md:text-2xl">Full Stack Developer</p>
+          <h1 className="text-4xl font-bold drop-shadow-lg md:text-6xl">Mohamad Fardeen</h1>
+          <p className="mt-4 text-xl drop-shadow-lg md:text-2xl">Junior Software Engineer</p>
         </div>
       </div>
       <div className="absolute inset-0 z-0 bg-black/50" />
