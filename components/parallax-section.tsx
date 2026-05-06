@@ -33,7 +33,17 @@ export default function ParallaxSection() {
       >
         <div className="text-center text-white">
           <h1 className="text-4xl font-bold drop-shadow-lg md:text-6xl">Fardeen Maaruf</h1>
-          <p className="mt-4 text-xl drop-shadow-lg md:text-2xl">Full Stack Developer</p>
+          <p className="mt-4 text-xl drop-shadow-lg md:text-2xl">Software Developer</p>
+          <div className="mt-8 flex justify-center gap-4">
+            <a
+              href="https://github.com/F4rdeen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
+            >
+              View GitHub Profile
+            </a>
+          </div>
         </div>
       </div>
       <div className="absolute inset-0 z-0 bg-black/50" />

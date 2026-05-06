@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Github } from "lucide-react"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { Project } from "@/lib/data"
@@ -32,13 +32,23 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.technologies.length > 3 && <Badge variant="outline">+{project.technologies.length - 3}</Badge>}
         </div>
       </CardContent>
-      <CardFooter className="flex items-center justify-between border-t p-6">
+      <CardFooter className="flex flex-wrap items-center justify-between gap-3 border-t p-6">
         <div className="text-sm text-muted-foreground">
           {project.startDate} - {project.endDate}
         </div>
-        <Link href={`/projects/${project.slug}`} className="flex items-center text-sm font-medium text-primary">
-          View Project <ArrowRight className="ml-1 h-4 w-4" />
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
+            <Github className="mr-1 h-4 w-4" /> GitHub
+          </Link>
+          <Link href={`/projects/${project.slug}`} className="flex items-center text-sm font-medium text-primary">
+            View Details <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
       </CardFooter>
     </Card>
   )

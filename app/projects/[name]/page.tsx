@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { projects } from "@/lib/data"
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 
   return {
-    title: `${project.name} | Alex Morgan`,
+    title: `${project.name} | Fardeen Maaruf`,
     description: project.description,
   }
 }
@@ -76,8 +76,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 Back to Projects
               </Link>
             </Button>
-            <div className="text-sm text-muted-foreground">
-              {project.startDate} - {project.endDate}
+            <div className="flex items-center gap-4">
+              <div className="text-sm text-muted-foreground">
+                {project.startDate} - {project.endDate}
+              </div>
+              <Button asChild variant="outline" size="sm">
+                <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                  <Github className="mr-2 h-4 w-4" />
+                  View on GitHub
+                </Link>
+              </Button>
             </div>
           </div>
 

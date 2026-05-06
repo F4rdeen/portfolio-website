@@ -3,7 +3,7 @@ import JobCard from "@/components/job-card"
 import { jobs } from "@/lib/data"
 
 export const metadata: Metadata = {
-  title: "Experience | Alex Morgan",
+  title: "Experience | Fardeen Maaruf",
   description: "My professional work experience and career history",
 }
 
