@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ParallaxSection from "@/components/parallax-section"
+import MiniMeChat from "@/components/mini-me-chat"
 import { personalInfo, projects, jobs } from "@/lib/data"
 
 export default function Home() {
@@ -123,6 +124,20 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-muted px-4 py-12 md:px-8 md:py-24">
+        <div className="container">
+          <div className="mx-auto max-w-3xl space-y-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Mini Me Assistant</h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Talk to a quick AI-style assistant that knows my background, projects, and skills.
+              </p>
+            </div>
+            <MiniMeChat />
+          </div>
+        </div>
+      </section>
+
       <section className="bg-primary px-4 text-primary-foreground md:px-8">
         <div className="container py-12 md:py-24">
           <div className="mx-auto max-w-2xl text-center">
@@ -141,4 +156,3 @@ export default function Home() {
     </div>
   )
 }
-
