@@ -16,7 +16,7 @@ export function getMiniMeResponse(input: string): string {
   }
 
   if (message.includes("project") || message.includes("github") || message.includes("chatbot")) {
-    return `You can check projects on https://${personalInfo.github}. Featured ones include ${projects
+    return `You can check projects on GitHub: https://${personalInfo.github}. Featured ones include ${projects
       .slice(0, 3)
       .map((project) => project.name)
       .join(", ")}.`
