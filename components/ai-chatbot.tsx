@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react"
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react"
 import { Bot, MessageCircle, Send, User, X } from "lucide-react"
 import { personalInfo, projects, jobs } from "@/lib/data"
 import { Button } from "@/components/ui/button"
@@ -11,6 +11,8 @@ type Message = {
   role: "assistant" | "user"
   content: string
 }
+
+const TYPING_DELAY_MS = 400
 
 const initialMessage: Message = {
   id: "assistant-0",
@@ -112,8 +114,9 @@ export default function AiChatbot() {
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<Message[]>([initialMessage])
   const listRef = useRef<HTMLDivElement | null>(null)
-
-  const canSend = useMemo(() => input.trim().length > 0 && !isTyping, [input, isTyping])
+  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const messageCounterRef = useRef(0)
+  const canSend = input.trim().length > 0 && !isTyping
 
   const scrollToBottom = () => {
     requestAnimationFrame(() => {
@@ -123,13 +126,25 @@ export default function AiChatbot() {
     })
   }
 
-  const sendMessage = (event: FormEvent) => {
-    event.preventDefault()
+  const createId = (prefix: Message["role"]) =>
+    "randomUUID" in crypto
+      ? `${prefix}-${crypto.randomUUID()}`
+      : `${prefix}-${Date.now()}-${performance.now()}-${++messageCounterRef.current}-${Math.random().toString(16).slice(2)}`
+
+  useEffect(() => {
+    return () => {
+      if (typingTimerRef.current) {
+        window.clearTimeout(typingTimerRef.current)
+      }
+    }
+  }, [])
+
+  const sendCurrentMessage = () => {
     const value = input.trim()
     if (!value || isTyping) return
 
     const userMessage: Message = {
-      id: `user-${Date.now()}`,
+      id: createId("user"),
       role: "user",
       content: value,
     }
@@ -140,26 +155,33 @@ export default function AiChatbot() {
     setIsTyping(true)
     scrollToBottom()
 
-    window.setTimeout(() => {
+    if (typingTimerRef.current) {
+      window.clearTimeout(typingTimerRef.current)
+    }
+
+    typingTimerRef.current = window.setTimeout(() => {
       const assistantMessage: Message = {
-        id: `assistant-${Date.now()}`,
+        id: createId("assistant"),
         role: "assistant",
         content: generateResponse(value, nextConversation),
       }
 
       setMessages((prev) => [...prev, assistantMessage])
       setIsTyping(false)
+      typingTimerRef.current = null
       scrollToBottom()
-    }, 400)
+    }, TYPING_DELAY_MS)
+  }
+
+  const sendMessage = (event: FormEvent) => {
+    event.preventDefault()
+    sendCurrentMessage()
   }
 
   const onInputKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
-      const syntheticEvent = {
-        preventDefault: () => {},
-      } as FormEvent
-      sendMessage(syntheticEvent)
+      sendCurrentMessage()
     }
   }
 
@@ -182,7 +204,7 @@ export default function AiChatbot() {
             </button>
           </div>
 
-          <div ref={listRef} className="h-96 space-y-4 overflow-y-auto px-4 py-4">
+          <div ref={listRef} role="log" aria-live="polite" className="h-96 space-y-4 overflow-y-auto px-4 py-4">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -221,10 +243,15 @@ export default function AiChatbot() {
 
           <form onSubmit={sendMessage} className="border-t p-3">
             <div className="flex items-end gap-2">
+              <label htmlFor="chat-message-input" className="sr-only">
+                Message the AI assistant
+              </label>
               <textarea
+                id="chat-message-input"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
                 onKeyDown={onInputKeyDown}
+                aria-label="Chat message input"
                 placeholder="Ask about projects, skills, or experience..."
                 className="max-h-28 min-h-10 flex-1 resize-y rounded-xl border bg-background px-3 py-2 text-sm outline-none ring-ring transition focus:ring-2"
                 rows={1}
