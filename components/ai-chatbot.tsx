@@ -114,7 +114,7 @@ export default function AiChatbot() {
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<Message[]>([initialMessage])
   const listRef = useRef<HTMLDivElement | null>(null)
-  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const typingTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null)
   const messageCounterRef = useRef(0)
   const canSend = input.trim().length > 0 && !isTyping
 
